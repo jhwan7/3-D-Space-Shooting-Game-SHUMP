@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     
-    //public float speed = 10f;
+    public float speed = 10f;
     //public float fireRate = 0.3f;
     //public float health = 10f;
     //public int score = 100;
