@@ -8,13 +8,13 @@ public class Enemy_2 : Enemy
     public float waveWidth = 4;
     public float waveRotY = 45;
 
-    private float x0;
+    private float _x0;
 
     private float birthTime;
 
     private void Start()
     {
-        x0 = pos.x;
+        _x0 = pos.x;
         birthTime = Time.time;
     }
 
@@ -25,7 +25,7 @@ public class Enemy_2 : Enemy
         float age = Time.time - birthTime;
         float theta = Mathf.PI * 2 * age / waveFrequency;
         float sin = Mathf.Sin(theta);
-        temppos.x = x0 + waveWidth * sin;
+        temppos.x = _x0 + waveWidth * sin;
         pos = temppos;
 
         Vector3 rot = new Vector3(0, sin * waveRotY, 0);

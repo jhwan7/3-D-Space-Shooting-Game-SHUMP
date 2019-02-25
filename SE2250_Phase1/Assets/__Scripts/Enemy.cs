@@ -5,10 +5,10 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     
-    public float speed = 10f;
-    public float fireRate = 0.3f;
-    public float health = 10f;
-    public int score = 100;
+    //public float speed = 10f;
+    //public float fireRate = 0.3f;
+    //public float health = 10f;
+    //public int score = 100;
 
     protected BoundsCheck bndCheck;//using bounds check class
 
