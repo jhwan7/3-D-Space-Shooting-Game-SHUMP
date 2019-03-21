@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6582409519100545862}
   - component: {fileID: 6582409519100545863}
   - component: {fileID: 6582409519100545860}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cockpit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 6582409520143254932}
   - component: {fileID: 6582409520143254933}
   - component: {fileID: 6582409520143254922}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -194,7 +194,7 @@ GameObject:
   - component: {fileID: 6582409520148719131}
   - component: {fileID: 6582409520148719128}
   - component: {fileID: 6582409520148719129}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: WingL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -286,9 +286,9 @@ GameObject:
   - component: {fileID: 1550643702}
   - component: {fileID: 1550643701}
   - component: {fileID: 1550643703}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Enemy_1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -361,9 +361,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  fireRate: 0.3
-  health: 10
-  score: 100
 --- !u!1 &6582409520238421838
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,7 +373,7 @@ GameObject:
   - component: {fileID: 6582409520238421834}
   - component: {fileID: 6582409520238421835}
   - component: {fileID: 6582409520238421832}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: WingR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
