@@ -222,8 +222,8 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 187165721}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
+  m_IsTrigger: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -407,6 +407,7 @@ GameObject:
   - component: {fileID: 888353257}
   - component: {fileID: 888353256}
   - component: {fileID: 888353255}
+  - component: {fileID: 888353258}
   m_Layer: 0
   m_Name: Shield
   m_TagString: Untagged
@@ -436,7 +437,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 888353253}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
@@ -486,6 +487,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 888353253}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &888353258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 888353253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a1445f70d21647b68ac905ea88e54c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationsPerSecond: 0.1
+  levelShown: 0
 --- !u!1 &1349374429
 GameObject:
   m_ObjectHideFlags: 0
@@ -527,7 +542,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1349374429}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -658,6 +673,8 @@ MonoBehaviour:
   speed: 30
   rollMult: -45
   pitchMult: 30
+  gameRestartDelay: 2
+  _shieldLevel: 4
 --- !u!4 &1935705648
 Transform:
   m_ObjectHideFlags: 0

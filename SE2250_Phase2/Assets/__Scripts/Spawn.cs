@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Spawn : MonoBehaviour
 {
@@ -43,7 +44,19 @@ public class Spawn : MonoBehaviour
         Invoke("SpawnEnemy", 1f / enemySpawnPeriod);
     }
 
-    
+    public void DelayedRestart( float delay)
+    {
+        //Invoke the Restart() method in delay seconds
+        Invoke("Restart", delay);
+    }
+
+    public void Restart()
+    {
+        //Reload _Scene_0 to restart the game
+        SceneManager.LoadScene("_Scene0");
+    }
+
+
 
     // Start is called before the first frame update
     void Start()
