@@ -10,6 +10,8 @@ public class Hero : MonoBehaviour
     public float rollMult = -45f;
     public float pitchMult = 30f;
 
+    //Shield status
+    public float shieldLevel = 1;
 
     // Start is called before the first frame update
 
