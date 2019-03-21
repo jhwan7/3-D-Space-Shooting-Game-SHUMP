@@ -47,5 +47,53 @@ public class Enemy : MonoBehaviour
         tempPos.y -= speed * Time.deltaTime;
         pos = tempPos;
     }
+
+    void OnCollisionEnter(Collision coll)
+    {
+        GameObject otherGO = coll.gameObject; //Get the GameObject of the collider that was hit in the collision
+        if(otherGO.tag == "ProjectileHero") { //When the projectileHero hits the enemy, we destroy both objects
+            Destroy(otherGO);
+            Destroy(gameObject);
+            Debug.Log("Hit");
+        }
+        else
+        {
+            print("Enemy hit by non-ProjectileHero: " + otherGO.name);
+        }
+
+        //GameObject otherGo = coll.gameObject;
+        //switch (otherGo.tag)
+        //{
+        //    case "ProjectileHero":
+
+        //}
+    }
+    //void OnCollisionEnter(Collision coll)
+    //{
+    //    GameObject otherGO = coll.gameObject;
+
+    //    switch (otherGO.tag)
+    //    {
+    //        case "ProjectileHero":
+    //            Projectile p = otherGO.GetComponent<Projectile>();
+    //            if (!bndCheck.isOnScreen)
+    //            {
+    //                Destroy(otherGO);
+    //                break;
+    //            }
+    //            //health -= Main.GetWeaponDefinition(p.type).damageOnHit;
+    //            //if (health <= 0)
+    //            //{
+    //            //    Destroy(this.gameObject);
+    //            //}
+    //            Destroy(otherGO);
+    //            break;
+
+    //        default:
+    //            print("Enemy hit by non-ProjectileHero: " + otherGO.name);
+    //            break;
+    //    }
+
+    //}
 }
 

@@ -6,10 +6,13 @@ using UnityEngine.SceneManagement;
 public class Spawn : MonoBehaviour
 {
     static public Spawn S;
+    static Dictionary<WeaponType, WeaponDefinition> WEAP_DICT; //Dictionary is static so that class Spawn class instance can access and any static method of Spawn too
 
     public GameObject[] prefabEnemies;
-    public float enemySpawnPeriod = 2f;
+    public float enemySpawnPeriod = 0.5f;
     public float enemyDefaultPadding = 1.5f;
+
+    public WeaponDefinition[] weaponDefinitions;
 
     private BoundsCheck _bndCheck;
 
@@ -18,6 +21,13 @@ public class Spawn : MonoBehaviour
         S = this;
         _bndCheck = GetComponent<BoundsCheck>();
         Invoke("SpawnEnemy", 1f / enemySpawnPeriod);
+
+        //A generic dictionary with WeaponType as the key
+        WEAP_DICT = new Dictionary<WeaponType, WeaponDefinition>();
+        foreach(WeaponDefinition def in weaponDefinitions)
+        {
+            WEAP_DICT[def.type] = def; //In the dictionary we are attaching the specifications (value) of each weapon to the weapon name(key)
+        }
 
     }
 
@@ -54,6 +64,15 @@ public class Spawn : MonoBehaviour
     {
         //Reload _Scene_0 to restart the game
         SceneManager.LoadScene("_Scene0");
+    }
+
+    static public WeaponDefinition GetWeaponDefinition(WeaponType wt)
+    {
+        if (WEAP_DICT.ContainsKey(wt))
+        {
+            return (WEAP_DICT[wt]);
+        }
+        return (new WeaponDefinition());
     }
 
 

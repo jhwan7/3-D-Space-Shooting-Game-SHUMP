@@ -11,6 +11,10 @@ public class Hero : MonoBehaviour
     public float pitchMult = 30f;
     public float gameRestartDelay = 2f;
 
+    //Adding shoot-ability
+    public GameObject projectilePrefab;
+    public float projectileSpeed = 40f;
+
     //Shield status
     [Header("Set Dynamically")]
     [SerializeField] //Allows us to see the private variable in the inspector
@@ -18,6 +22,9 @@ public class Hero : MonoBehaviour
 
     //This variable holds a reference to the last triggering Gameobject
     private GameObject _lastTriggerGo = null;
+
+    public delegate void WeaponFireDelegate();
+    public WeaponFireDelegate fireDelegate;
 
     // Start is called before the first frame update
 
@@ -31,6 +38,8 @@ public class Hero : MonoBehaviour
         {
             Debug.LogError("Hero.Aware() - Attempted to assign second Hero.S!");
         }
+
+        fireDelegate = TempFire;
     }
     void Start()
     {
@@ -49,7 +58,30 @@ public class Hero : MonoBehaviour
         transform.position = pos;
 
         transform.rotation = Quaternion.Euler(yAxis * pitchMult, xAxis * rollMult, 0);
-        
+
+        //Shooting ability
+        transform.rotation = Quaternion.Euler(yAxis * pitchMult, xAxis * rollMult, 0);
+
+
+        //if (Input.GetKeyDown(KeyCode.Space)) //Shoot projectile when space bar
+        //{
+        //    TempFire();
+        //}
+
+        //Allow the ship to fire
+        if (Input.GetAxis("Jump") == 1 && fireDelegate != null) //Jump is equivalent to 1 when spacebar is pressed
+        {
+            fireDelegate();
+        }
+
+    }
+
+    void TempFire() //Temporary firing ability will be overwritten 
+    {
+        GameObject projGO = Instantiate<GameObject>(projectilePrefab);
+        projGO.transform.position = transform.position;
+        Rigidbody rigidB = projGO.GetComponent<Rigidbody>();
+        rigidB.velocity = Vector3.up * projectileSpeed;
     }
 
     void OnTriggerEnter(Collider other)
