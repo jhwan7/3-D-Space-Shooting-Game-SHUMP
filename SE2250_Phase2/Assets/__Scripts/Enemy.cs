@@ -6,9 +6,9 @@ public class Enemy : MonoBehaviour
 {
     
     public float speed = 10f;
-    //public float fireRate = 0.3f;
-    //public float health = 10f;
-    //public int score = 100;
+    public float fireRate = 0.3f;
+    public float health = 10f;
+    public int score = 100;
 
     protected BoundsCheck bndCheck;//using bounds check class
 
@@ -50,50 +50,30 @@ public class Enemy : MonoBehaviour
 
     void OnCollisionEnter(Collision coll)
     {
-        GameObject otherGO = coll.gameObject; //Get the GameObject of the collider that was hit in the collision
-        if(otherGO.tag == "ProjectileHero") { //When the projectileHero hits the enemy, we destroy both objects
-            Destroy(otherGO);
-            Destroy(gameObject);
-            Debug.Log("Hit");
-        }
-        else
+        GameObject otherGO = coll.gameObject;
+
+        switch (otherGO.tag)
         {
-            print("Enemy hit by non-ProjectileHero: " + otherGO.name);
+            case "ProjectileHero":
+                Projectile p = otherGO.GetComponent<Projectile>();
+                if (!bndCheck.isOnScreen)
+                {
+                    Destroy(otherGO);
+                    break;
+                }
+                health -= Spawn.GetWeaponDefinition(p.type).damageOnHit;
+                if (health <= 0)
+                {
+                    Destroy(this.gameObject);
+                }
+                Destroy(otherGO);
+                break;
+
+            default:
+                print("Enemy hit by non-ProjectileHero: " + otherGO.name);
+                break;
         }
 
-        //GameObject otherGo = coll.gameObject;
-        //switch (otherGo.tag)
-        //{
-        //    case "ProjectileHero":
-
-        //}
     }
-    //void OnCollisionEnter(Collision coll)
-    //{
-    //    GameObject otherGO = coll.gameObject;
-
-    //    switch (otherGO.tag)
-    //    {
-    //        case "ProjectileHero":
-    //            Projectile p = otherGO.GetComponent<Projectile>();
-    //            if (!bndCheck.isOnScreen)
-    //            {
-    //                Destroy(otherGO);
-    //                break;
-    //            }
-    //            //health -= Main.GetWeaponDefinition(p.type).damageOnHit;
-    //            //if (health <= 0)
-    //            //{
-    //            //    Destroy(this.gameObject);
-    //            //}
-    //            Destroy(otherGO);
-    //            break;
-
-    //        default:
-    //            print("Enemy hit by non-ProjectileHero: " + otherGO.name);
-    //            break;
-    //    }
-
-    //}
 }
 

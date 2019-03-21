@@ -39,7 +39,7 @@ public class Hero : MonoBehaviour
             Debug.LogError("Hero.Aware() - Attempted to assign second Hero.S!");
         }
 
-        fireDelegate = TempFire;
+        //fireDelegate += TempFire;
     }
     void Start()
     {
@@ -76,13 +76,13 @@ public class Hero : MonoBehaviour
 
     }
 
-    void TempFire() //Temporary firing ability will be overwritten 
-    {
-        GameObject projGO = Instantiate<GameObject>(projectilePrefab);
-        projGO.transform.position = transform.position;
-        Rigidbody rigidB = projGO.GetComponent<Rigidbody>();
-        rigidB.velocity = Vector3.up * projectileSpeed;
-    }
+    //void TempFire() //Temporary firing ability will be overwritten 
+    //{
+    //    GameObject projGO = Instantiate<GameObject>(projectilePrefab);
+    //    projGO.transform.position = transform.position;
+    //    Rigidbody rigidB = projGO.GetComponent<Rigidbody>();
+    //    rigidB.velocity = Vector3.up * projectileSpeed;
+    //}
 
     void OnTriggerEnter(Collider other)
     {

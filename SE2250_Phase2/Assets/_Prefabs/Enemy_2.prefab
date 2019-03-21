@@ -247,6 +247,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  fireRate: 0.3
+  health: 6
+  score: 100
   waveFrequency: 2
   waveWidth: 4
   waveRotY: 45
