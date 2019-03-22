@@ -148,20 +148,20 @@ public class Weapons : MonoBehaviour
     }
     void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.E))
-        //{
-        //    if (_type == WeaponType.spread)
-        //    {
-        //        _type = WeaponType.blaster;
-        //        SetType(_type);
-        //    }
-        //    else
-        //    {
-        //        _type = WeaponType.spread;
-        //        SetType(_type);
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (_type == WeaponType.spread)
+            {
+                _type = WeaponType.blaster;
+                SetType(_type);
+            }
+            else
+            {
+                _type = WeaponType.spread;
+                SetType(_type);
 
-        //    }
-        //}
+            }
+        }
 
     }
 }
