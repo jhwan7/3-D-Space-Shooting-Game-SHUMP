@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class Enemy : MonoBehaviour
 {
@@ -8,7 +10,7 @@ public class Enemy : MonoBehaviour
     public float speed = 10f;
     public float fireRate = 0.3f;
     public float health = 10f;
-    public int score = 100;
+    public int score = 0;
 
     protected BoundsCheck bndCheck;//using bounds check class
 
@@ -56,14 +58,20 @@ public class Enemy : MonoBehaviour
         {
             case "ProjectileHero":
                 Projectile p = otherGO.GetComponent<Projectile>();
+                //If this enemey is off screen, don't damage it
                 if (!bndCheck.isOnScreen)
                 {
                     Destroy(otherGO);
                     break;
                 }
+                //Hurt the enemy
+                //Get the damage amount from the Spawn WEAP_DICT
                 health -= Spawn.GetWeaponDefinition(p.type).damageOnHit;
                 if (health <= 0)
                 {
+
+                    Spawn.S.score = Spawn.S.score + score;
+                    GameObject.Find("Score").GetComponent<UnityEngine.UI.Text>().text = "Score: " + Spawn.S.score;
                     Destroy(this.gameObject);
                 }
                 Destroy(otherGO);

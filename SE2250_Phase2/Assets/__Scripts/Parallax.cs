@@ -11,6 +11,7 @@ public class Parallax : MonoBehaviour
     public float motionMult = 0.25f;
     private float panelHt; // Height of each panel
     private float depth; // Depth of panels (that is, pos.z)
+
     void Start()
     {
         panelHt = panels[0].transform.localScale.y;
@@ -19,6 +20,7 @@ public class Parallax : MonoBehaviour
         panels[0].transform.position = new Vector3(0, 0, depth);
         panels[1].transform.position = new Vector3(0, panelHt, depth);
     }
+
     void Update()
     {
         float tY, tX = 0;

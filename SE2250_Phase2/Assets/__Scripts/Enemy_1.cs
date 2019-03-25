@@ -5,14 +5,11 @@ using UnityEngine;
 public class Enemy_1 : Enemy
 {
     int i;
-
    
-    // Start is called before the first frame update
     void Start()
     {
         i = Random.Range(0, 15);
     }
-
 
     public override void Move()
     {

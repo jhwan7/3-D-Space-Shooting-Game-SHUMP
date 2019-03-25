@@ -6,15 +6,22 @@ using UnityEngine.SceneManagement;
 public class Spawn : MonoBehaviour
 {
     static public Spawn S;
-    static Dictionary<WeaponType, WeaponDefinition> WEAP_DICT; //Dictionary is static so that class Spawn class instance can access and any static method of Spawn too
+    //Dictionary is static so that class Spawn class instance can access and any static method of Spawn too
+    static Dictionary<WeaponType, WeaponDefinition> WEAP_DICT; 
 
     public GameObject[] prefabEnemies;
     public float enemySpawnPeriod = 0.5f;
     public float enemyDefaultPadding = 1.5f;
 
+    //Instantiating an array that holds the different weapons
     public WeaponDefinition[] weaponDefinitions;
 
     private BoundsCheck _bndCheck;
+
+    //Fields related to keeping the score
+    public int score = 0;
+    public int highScore;
+
 
     private void Awake()
     {
@@ -27,6 +34,17 @@ public class Spawn : MonoBehaviour
         foreach(WeaponDefinition def in weaponDefinitions)
         {
             WEAP_DICT[def.type] = def; //In the dictionary we are attaching the specifications (value) of each weapon to the weapon name(key)
+        }
+
+        GameObject.Find("Score").GetComponent<UnityEngine.UI.Text>().text = "Score: " + score;
+        // Check for a high score in PlayerPrefs
+        if (PlayerPrefs.HasKey("highScore"))
+        {
+            GameObject.Find("HighScore").GetComponent<UnityEngine.UI.Text>().text = "High Score: " + PlayerPrefs.GetInt("highScore");
+        }
+        else
+        {
+            PlayerPrefs.SetInt("highScore", 0);
         }
 
     }
@@ -54,38 +72,43 @@ public class Spawn : MonoBehaviour
         Invoke("SpawnEnemy", 1f / enemySpawnPeriod);
     }
 
+    /* DelayedRestart and Restart are called in Hero class when the player dies
+     */   
     public void DelayedRestart( float delay)
     {
         //Invoke the Restart() method in delay seconds
         Invoke("Restart", delay);
     }
 
+    //Restart() is called in DelayedRestart() method
     public void Restart()
     {
+        if (score > highScore)
+        {
+            PlayerPrefs.SetInt("highScore", score);
+        }
+
         //Reload _Scene_0 to restart the game
         SceneManager.LoadScene("_Scene0");
     }
 
+    /* Static function that gets a WeaponDefinition from the WEAP_DICT static
+     * protected field of the Spawn class.
+     * The WeaponDefinition or, if there is no WeaponDefinition with the WeaponType
+     * passed in, returns a new WeaponDefinition with a WeaponType of none
+     */
     static public WeaponDefinition GetWeaponDefinition(WeaponType wt)
     {
+        //Check to make sure that the key exists in the Dictionary
+        //Attempting to retrieve a key that didn't exist, would throw an error
         if (WEAP_DICT.ContainsKey(wt))
         {
             return (WEAP_DICT[wt]);
         }
+
+        //This returns a new WeaponDefinition with a type of WeaponType.non
+        //which means it has failed to find the right WeaponDefinition.
         return (new WeaponDefinition());
     }
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-
-    }
 }

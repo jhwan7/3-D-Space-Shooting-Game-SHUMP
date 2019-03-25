@@ -3,16 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Summary of the possible weapons we can use in the game
+/* As a public enum outside of the Weapon class, WeaponType cdan be seen by and use by any other script in the project
+ */
 public enum WeaponType
 {
-    none,
-    blaster,
-    spread,
-    phaser,
+    none, //Default, no weapon
+    blaster, //Simple blaster
+    spread, //3 shots
+    phaser, 
     missile,
     laser,
     shield
 }
+
+/* the WeaponDefinition class allows you to set the properties
+ * of a specific weapon in the Inspector. The Spawn class has
+ * an array of WeaponDefinitions that makes this possible
+ */
 
 [System.Serializable] //Causes the class defined to be serializable and editable within the Unity inspector
 public class WeaponDefinition 
@@ -89,11 +96,11 @@ public class Weapons : MonoBehaviour
     public void Fire()
     {
         // If this.gameObject is inactive, return
-        if (!gameObject.activeInHierarchy) return; // h
-                                                   // If it hasn't been enough time between shots, return
+        if (!gameObject.activeInHierarchy) return; 
+        // If it hasn't been enough time between shots, return
 
         if (Time.time - lastShotTime < def.delayBetweenShots)
-        { // i
+        { 
             return;
         }
 
@@ -106,7 +113,7 @@ public class Weapons : MonoBehaviour
         }
 
         switch (type)
-        { // k
+        {
             case WeaponType.blaster:
                 p = MakeProjectile();
                 p.rigid.velocity = vel;
@@ -125,11 +132,11 @@ public class Weapons : MonoBehaviour
     }
 
     public Projectile MakeProjectile()
-    { // m
+    { 
         GameObject go = Instantiate<GameObject>(def.projectilePrefab);
 
         if (transform.parent.gameObject.tag == "Hero")
-        { // n
+        { 
             go.tag = "ProjectileHero";
             go.layer = LayerMask.NameToLayer("ProjectileHero");
         }
@@ -140,14 +147,17 @@ public class Weapons : MonoBehaviour
         }
 
         go.transform.position = collar.transform.position;
-        go.transform.SetParent(PROJECTILE_ANCHOR, true); // o
+        go.transform.SetParent(PROJECTILE_ANCHOR, true); 
         Projectile p = go.GetComponent<Projectile>();
         p.type = type;
-        lastShotTime = Time.time; // p
+        lastShotTime = Time.time; 
         return (p);
     }
+
     void Update()
     {
+        /* Pressing 'E' allows the user to switch between blaster and spread
+         */
         if (Input.GetKeyDown(KeyCode.E))
         {
             if (_type == WeaponType.spread)
