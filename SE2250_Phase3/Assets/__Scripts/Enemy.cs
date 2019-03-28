@@ -12,6 +12,9 @@ public class Enemy : MonoBehaviour
     public float health = 10f;
     public int score = 0;
 
+    public bool notifiedOfDestruction = false;
+    public float powerUpDropChance = 1f;
+
     protected BoundsCheck bndCheck;//using bounds check class
 
     public Vector3 pos
@@ -69,9 +72,15 @@ public class Enemy : MonoBehaviour
                 health -= Spawn.GetWeaponDefinition(p.type).damageOnHit;
                 if (health <= 0)
                 {
+                    if (!notifiedOfDestruction)
+                    {
+                        Spawn.S.shipDestroyed(this);
+                    }
+                    notifiedOfDestruction = true;
 
                     Spawn.S.score = Spawn.S.score + score;
                     GameObject.Find("Score").GetComponent<UnityEngine.UI.Text>().text = "Score: " + Spawn.S.score;
+
                     Destroy(this.gameObject);
                 }
                 Destroy(otherGO);

@@ -16,6 +16,7 @@ public class Hero : MonoBehaviour
     //Adding shoot-ability 
     public GameObject projectilePrefab;
     public float projectileSpeed = 40f;
+    public Weapons[] weapons;
 
     //Shield status
     [Header("Set Dynamically")]
@@ -27,7 +28,7 @@ public class Hero : MonoBehaviour
     public delegate void WeaponFireDelegate();
     public WeaponFireDelegate fireDelegate;
 
-    private void Awake()
+    private void Start()
     {
         if(S == null)
         {
@@ -38,6 +39,8 @@ public class Hero : MonoBehaviour
             Debug.LogError("Hero.Aware() - Attempted to assign second Hero.S!");
         }
 
+        ClearWeapons();
+        weapons[0].SetType(WeaponType.blaster);
         //fireDelegate += TempFire;
     }
 
@@ -84,9 +87,77 @@ public class Hero : MonoBehaviour
             Destroy(go); 
             print("Trigger");
         }
+        else if (go.tag == "PowerUp")
+        {
+            // If the shield was triggered by a PowerUp
+            AbsorbPowerUp(go);
+        }
         else
         {
             print("Triggered by non-Enemy: " + go.name);
+        }
+    }
+
+    public void AbsorbPowerUp(GameObject go)
+    {
+        PowerUp pu = go.GetComponent<PowerUp>();
+        switch (pu.type)
+        {
+            case WeaponType.shield: // a
+                shieldLevel++;
+                break;
+
+            default:
+                if(pu.type == weapons[0].type)
+                {
+                    Weapons w = GetEmptyWeaponSlot();
+                    if (w != null)
+                    {
+                        w.SetType(pu.type);
+                    }
+                }
+                else
+                {
+                    ClearWeapons();
+                    weapons[0].SetType(pu.type);
+                }
+                break;
+
+                //case WeaponType.points:
+                //    //Add points to score and set the ui too display score and highscore
+                //    Main.S.score += 100;
+                //    GameObject.Find("Score").GetComponent<UnityEngine.UI.Text>().text = "Score: " + Main.S.score;
+                //    if (Main.S.score > Main.S.highScore)
+                //    {
+                //        Main.S.highScore = Main.S.score;
+                //        GameObject.Find("HighScore").GetComponent<UnityEngine.UI.Text>().text = "High Score: " + Main.S.highScore;
+                //    }
+                //    break;
+                //case WeaponType.oneShot:
+                //specialWeapon = true;
+                //specialShots = 5;
+                //break;
+        }
+        pu.AbsorbedBy(this.gameObject);
+    }
+
+    Weapons GetEmptyWeaponSlot()
+    {
+        for (int i =0; i < weapons.Length; i++)
+        {
+            if (weapons[i].type == WeaponType.none)
+            {
+                return (weapons[i]);
+            }
+        }
+        return (null);
+    }
+
+    void ClearWeapons()
+    {
+        foreach (Weapons w in weapons)
+        {
+            w.SetType(WeaponType.none);
         }
     }
 
@@ -112,4 +183,6 @@ public class Hero : MonoBehaviour
             }
         }
     }
+
+
 }

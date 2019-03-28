@@ -15,6 +15,11 @@ public class Spawn : MonoBehaviour
 
     //Instantiating an array that holds the different weapons
     public WeaponDefinition[] weaponDefinitions;
+    public GameObject prefabPowerUp;
+    public WeaponType[] powerUpFrequency = new WeaponType[]
+    {
+        WeaponType.blaster, WeaponType.blaster, WeaponType.spread, WeaponType.shield
+    };
 
     private BoundsCheck _bndCheck;
 
@@ -22,6 +27,7 @@ public class Spawn : MonoBehaviour
     public int score = 0;
     public int highScore;
 
+    public int currentLevel = 1;
 
     private void Awake()
     {
@@ -46,6 +52,9 @@ public class Spawn : MonoBehaviour
         {
             PlayerPrefs.SetInt("highScore", 0);
         }
+
+        SetLevel();
+
 
     }
 
@@ -111,4 +120,31 @@ public class Spawn : MonoBehaviour
         return (new WeaponDefinition());
     }
 
+    public void shipDestroyed(Enemy e)
+    { // c
+      // Potentially generate a PowerUp
+        if (Random.value <= e.powerUpDropChance)
+        { // d
+          // Choose which PowerUp to pick
+          // Pick one from the possibilities in powerUpFrequency
+            int ndx = Random.Range(0, powerUpFrequency.Length); // e
+            WeaponType puType = powerUpFrequency[ndx];
+            // Spawn a PowerUp
+            GameObject go = Instantiate(prefabPowerUp) as GameObject;
+            PowerUp pu = go.GetComponent<PowerUp>();
+            // Set it to the proper WeaponType
+            pu.SetType(puType); // f
+
+                                // Set it to the position of the destroyed ship
+            pu.transform.position = e.transform.position;
+        }
+    }
+
+    void SetLevel()
+    {
+        if(score >= 200)
+        {
+            Debug.Log("New Level");
+        }
+    }
 }
