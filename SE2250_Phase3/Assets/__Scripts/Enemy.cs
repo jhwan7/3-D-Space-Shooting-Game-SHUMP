@@ -15,6 +15,8 @@ public class Enemy : MonoBehaviour
     public bool notifiedOfDestruction = false;
     public float powerUpDropChance = 1f;
 
+    public GameObject explosionEffect;
+
     protected BoundsCheck bndCheck;//using bounds check class
 
     public Vector3 pos
@@ -81,6 +83,7 @@ public class Enemy : MonoBehaviour
                     Spawn.S.score = Spawn.S.score + score;
                     GameObject.Find("Score").GetComponent<UnityEngine.UI.Text>().text = "Score: " + Spawn.S.score;
 
+                    Explode();
                     Destroy(this.gameObject);
                 }
                 Destroy(otherGO);
@@ -91,6 +94,11 @@ public class Enemy : MonoBehaviour
                 break;
         }
 
+    }
+
+    void Explode()
+    {
+        Instantiate(explosionEffect, transform.position, transform.rotation);
     }
 }
 

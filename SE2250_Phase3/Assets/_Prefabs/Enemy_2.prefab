@@ -250,6 +250,9 @@ MonoBehaviour:
   fireRate: 0.3
   health: 8
   score: 300
+  notifiedOfDestruction: 0
+  powerUpDropChance: 1
+  explosionEffect: {fileID: 100006, guid: a49596ebf788acd4ab1281bffea444b1, type: 3}
   waveFrequency: 2
   waveWidth: 4
   waveRotY: 45

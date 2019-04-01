@@ -364,6 +364,9 @@ MonoBehaviour:
   fireRate: 0.3
   health: 5
   score: 200
+  notifiedOfDestruction: 0
+  powerUpDropChance: 1
+  explosionEffect: {fileID: 100006, guid: a49596ebf788acd4ab1281bffea444b1, type: 3}
 --- !u!1 &6582409520238421838
 GameObject:
   m_ObjectHideFlags: 0
