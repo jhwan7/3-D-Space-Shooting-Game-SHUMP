@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
     public int score = 0;
 
     public bool notifiedOfDestruction = false;
-    public float powerUpDropChance = 1f;
+    public float powerUpDropChance = 0.3f;
 
     public GameObject explosionEffect;
 
@@ -44,8 +44,6 @@ public class Enemy : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        
-
     }
 
     public virtual void Move()
@@ -80,10 +78,6 @@ public class Enemy : MonoBehaviour
                     }
                     notifiedOfDestruction = true;
 
-                    Spawn.S.score = Spawn.S.score + score;
-                    GameObject.Find("Score").GetComponent<UnityEngine.UI.Text>().text = "Score: " + Spawn.S.score;
-
-                    Explode();
                     Destroy(this.gameObject);
                 }
                 Destroy(otherGO);
@@ -96,9 +90,32 @@ public class Enemy : MonoBehaviour
 
     }
 
+    private void OnDestroy()
+    {
+        //If enemies come off of screen(out of bounds), they will not explod
+        if (bndCheck != null && bndCheck.offDown)
+        {
+            return;
+        }
+
+        //If enemies are destroyed, increase the score and make them explode
+        Spawn.S.score = Spawn.S.score + score;
+        GameObject.Find("Score").GetComponent<UnityEngine.UI.Text>().text = "Score: " + Spawn.S.score;
+        Explode();
+    }
+
     void Explode()
     {
-        Instantiate(explosionEffect, transform.position, transform.rotation);
+        if (!Application.isPlaying)
+        {
+            Destroy(this);
+            return;
+        }
+        else
+        {
+            Instantiate(explosionEffect, transform.position, transform.rotation);
+            Destroy(this);
+        }
     }
 }
 

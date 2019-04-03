@@ -103,6 +103,10 @@ public class Hero : MonoBehaviour
         PowerUp pu = go.GetComponent<PowerUp>();
         switch (pu.type)
         {
+            case WeaponType.nuke:
+                Spawn.S.nukeCounter++;
+                GameObject.Find("NukeCounter").GetComponent<UnityEngine.UI.Text>().text = "Nuke Counter: " + Spawn.S.nukeCounter;
+                break;
             case WeaponType.shield: // a
                 shieldLevel++;
                 break;
@@ -122,21 +126,6 @@ public class Hero : MonoBehaviour
                     weapons[0].SetType(pu.type);
                 }
                 break;
-
-                //case WeaponType.points:
-                //    //Add points to score and set the ui too display score and highscore
-                //    Main.S.score += 100;
-                //    GameObject.Find("Score").GetComponent<UnityEngine.UI.Text>().text = "Score: " + Main.S.score;
-                //    if (Main.S.score > Main.S.highScore)
-                //    {
-                //        Main.S.highScore = Main.S.score;
-                //        GameObject.Find("HighScore").GetComponent<UnityEngine.UI.Text>().text = "High Score: " + Main.S.highScore;
-                //    }
-                //    break;
-                //case WeaponType.oneShot:
-                //specialWeapon = true;
-                //specialShots = 5;
-                //break;
         }
         pu.AbsorbedBy(this.gameObject);
     }

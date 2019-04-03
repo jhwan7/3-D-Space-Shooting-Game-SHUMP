@@ -18,14 +18,19 @@ public class Spawn : MonoBehaviour
     public GameObject prefabPowerUp;
     public WeaponType[] powerUpFrequency = new WeaponType[]
     {
-        WeaponType.blaster, WeaponType.blaster, WeaponType.spread, WeaponType.shield
+        WeaponType.blaster, WeaponType.blaster, WeaponType.spread, WeaponType.shield, WeaponType.nuke
     };
+
+    public GameObject nukeEffect;
 
     private BoundsCheck _bndCheck;
 
     //Fields related to keeping the score
     public int score = 0;
     public int highScore;
+
+    //Keep track of the number of nukes
+    public int nukeCounter = 0;
 
     public int currentLevel = 1;
 
@@ -43,6 +48,8 @@ public class Spawn : MonoBehaviour
         }
 
         GameObject.Find("Score").GetComponent<UnityEngine.UI.Text>().text = "Score: " + score;
+        GameObject.Find("NukeCounter").GetComponent<UnityEngine.UI.Text>().text = "Nuke Counter: " + nukeCounter;
+
         // Check for a high score in PlayerPrefs
         if (PlayerPrefs.HasKey("highScore"))
         {
@@ -52,10 +59,6 @@ public class Spawn : MonoBehaviour
         {
             PlayerPrefs.SetInt("highScore", 0);
         }
-
-        SetLevel();
-
-
     }
 
     public void SpawnEnemy()
@@ -134,17 +137,8 @@ public class Spawn : MonoBehaviour
             PowerUp pu = go.GetComponent<PowerUp>();
             // Set it to the proper WeaponType
             pu.SetType(puType); // f
-
                                 // Set it to the position of the destroyed ship
             pu.transform.position = e.transform.position;
-        }
-    }
-
-    void SetLevel()
-    {
-        if(score >= 200)
-        {
-            Debug.Log("New Level");
         }
     }
 }

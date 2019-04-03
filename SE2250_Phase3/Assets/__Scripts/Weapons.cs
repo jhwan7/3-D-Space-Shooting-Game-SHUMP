@@ -13,7 +13,8 @@ public enum WeaponType
     phaser, 
     missile,
     laser,
-    shield
+    shield,
+    nuke
 }
 
 /* the WeaponDefinition class allows you to set the properties
@@ -128,7 +129,22 @@ public class Weapons : MonoBehaviour
                 p.transform.rotation = Quaternion.AngleAxis(-10, Vector3.back);
                 p.rigid.velocity = p.transform.rotation * vel;
                 break;
+            case WeaponType.nuke:
+                Nuke();
+                break;
         }
+    }
+
+    void Nuke()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach(GameObject enemy in enemies)
+        {
+            Destroy(enemy);
+        }
+        Instantiate(Spawn.S.nukeEffect);
+        Spawn.S.nukeCounter--;
+        GameObject.Find("NukeCounter").GetComponent<UnityEngine.UI.Text>().text = "Nuke Counter: " + Spawn.S.nukeCounter;
     }
 
     public Projectile MakeProjectile()
@@ -169,8 +185,19 @@ public class Weapons : MonoBehaviour
             {
                 _type = WeaponType.spread;
                 SetType(_type);
-
             }
+        }
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            if (Spawn.S.nukeCounter > 0)
+            {
+                Nuke();
+            }
+            else
+            {
+                return;
+            }
+
         }
 
     }

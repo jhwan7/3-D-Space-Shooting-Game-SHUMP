@@ -10,7 +10,7 @@ public class PowerUp : MonoBehaviour
     public Vector2 rotMinMax = new Vector2(15, 90);
     public Vector2 driftMinMax = new Vector2(.25f, 2);
     public float lifeTime = 6f; // Seconds the PowerUp exists
-    public float fadeTime = 4f; // Seconds it will then fade
+    public float fadeTime = 2f; // Seconds it will then fade
 
     [Header("Set Dynamically")]
     public WeaponType type; // The type of the PowerUp
