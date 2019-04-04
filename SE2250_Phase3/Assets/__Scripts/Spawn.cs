@@ -37,6 +37,7 @@ public class Spawn : MonoBehaviour
 
     private void Awake()
     {
+        Time.timeScale = 1;
         S = this;
         _bndCheck = GetComponent<BoundsCheck>();
         Invoke("SpawnEnemy", 1f / enemySpawnPeriod);
@@ -140,11 +141,6 @@ public class Spawn : MonoBehaviour
             pu.SetType(puType); // f
                                 // Set it to the position of the destroyed ship
             pu.transform.position = e.transform.position;
-            //if (pu.type == WeaponType.EMP)
-            //{
-            //    pu.Stun();
-            //}
-
         }
     }
 }
