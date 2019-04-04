@@ -9,7 +9,6 @@ public class TitleScreen : MonoBehaviour
     public GameObject HighScoreGUI;
     public GameObject TitleGUI;
 
-    //public Text hitext;
     public void Awake()
     {
         HighScoreGUI.SetActive(false);
@@ -29,19 +28,12 @@ public class TitleScreen : MonoBehaviour
     {
         HighScoreGUI.SetActive(true);
         TitleGUI.SetActive(false);
-        //HighScoreGUI.Find("HighScoreNumber").GetComponent<UnityEngine.UI.Text>().text = ""+Spawn.S.highScore;
-        //GameObject.Find("HighScoreNumber").GetComponent<Text>().text = "" + Spawn.S.highScore;
-        //hitext.text = "" + Spawn.S.highScore;
+        GameObject.Find("HighScoreNumber").GetComponent<UnityEngine.UI.Text>().text = ""+ PlayerPrefs.GetInt("highScore");
     }
 
     public void ReturnTitle()
     {
         HighScoreGUI.SetActive(false);
         TitleGUI.SetActive(true);
-    }
-
-    public void Update()
-    {
-
     }
 }
