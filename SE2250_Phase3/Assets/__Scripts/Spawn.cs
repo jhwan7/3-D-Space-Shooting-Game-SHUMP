@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Spawn : MonoBehaviour
 {
@@ -32,16 +33,21 @@ public class Spawn : MonoBehaviour
 
     //Keep track of the number of nukes
     public int nukeCounter = 0;
-
     public int currentLevel = 1;
+    public GameObject levelDisplay;
+    public Text levelText;
+
+    public float scoreBase = 1000f;
+    public float scoreNextLevel;
+    public bool isNewLevel;
+    private float levelTimeStart;
 
     private void Awake()
     {
+        levelDisplay.SetActive(true);
         Time.timeScale = 1;
         S = this;
         _bndCheck = GetComponent<BoundsCheck>();
-        Invoke("SpawnEnemy", 1f / enemySpawnPeriod);
-
         //A generic dictionary with WeaponType as the key
         WEAP_DICT = new Dictionary<WeaponType, WeaponDefinition>();
         foreach(WeaponDefinition def in weaponDefinitions)
@@ -63,31 +69,72 @@ public class Spawn : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        SetLevel();
+        if(levelDisplay.activeSelf)
+        {
+            if(Time.time - levelTimeStart > 1f)
+            {
+                levelDisplay.SetActive(false);
+                Invoke("SpawnEnemy", 1f / enemySpawnPeriod);
+            }
+        }
+    }
+
     public void SpawnEnemy()
     {
-        int index = Random.Range(0, prefabEnemies.Length);
-        GameObject go = Instantiate<GameObject>(prefabEnemies[index]);
-
-
-        float enemyPadding = enemyDefaultPadding;
-
-        if (go.GetComponent<BoundsCheck>() != null)
+        if (!levelDisplay.activeSelf)
         {
-            enemyPadding = Mathf.Abs(go.GetComponent<BoundsCheck>().radius);
+            int index = Random.Range(0, prefabEnemies.Length);
+            GameObject go = Instantiate<GameObject>(prefabEnemies[index]);
+
+
+            float enemyPadding = enemyDefaultPadding;
+
+            if (go.GetComponent<BoundsCheck>() != null)
+            {
+                enemyPadding = Mathf.Abs(go.GetComponent<BoundsCheck>().radius);
+            }
+
+            Vector3 pos = Vector3.zero;
+            float xMin = -_bndCheck.camWidth + enemyPadding;
+            float xMax = _bndCheck.camWidth - enemyPadding;
+            pos.x = Random.Range(xMin, xMax);
+            pos.y = _bndCheck.camHeight + enemyPadding;
+            go.transform.position = pos;
+
+            Invoke("SpawnEnemy", 1f / enemySpawnPeriod);
         }
+    }
 
-        Vector3 pos = Vector3.zero;
-        float xMin = -_bndCheck.camWidth + enemyPadding;
-        float xMax = _bndCheck.camWidth - enemyPadding;
-        pos.x = Random.Range(xMin, xMax);
-        pos.y = _bndCheck.camHeight + enemyPadding;
-        go.transform.position = pos;
+    public void SetLevel()
+    {
+        isNewLevel = false;
+        scoreNextLevel = Mathf.Pow(currentLevel, 1.5f) * scoreBase;
+        if(score >= scoreNextLevel)
+        {
+            currentLevel++;
+            isNewLevel = true;
+            removeEnemies();
+            levelText.text = "Level: " + currentLevel;
+            levelDisplay.SetActive(true);
+            levelTimeStart = Time.time;
+            enemySpawnPeriod += 0.025f*currentLevel;
+        }
+    }
 
-        Invoke("SpawnEnemy", 1f / enemySpawnPeriod);
+    public void removeEnemies()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach(GameObject enemy in enemies)
+        {
+            Destroy(enemy);
+        }
     }
 
     /* DelayedRestart and Restart are called in Hero class when the player dies
-     */   
+     */
     public void DelayedRestart( float delay)
     {
         //Invoke the Restart() method in delay seconds

@@ -122,6 +122,12 @@ public class Enemy : MonoBehaviour
             return;
         }
 
+        else if(Spawn.S.isNewLevel)
+        {
+            Explode();
+            return;
+        }
+
         if (notifiedOfDestruction)
         {
             //If enemies are destroyed, increase the score and make them explode
