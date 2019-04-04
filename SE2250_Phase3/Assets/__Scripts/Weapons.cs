@@ -138,6 +138,10 @@ public class Weapons : MonoBehaviour
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach(GameObject enemy in enemies)
         {
+            Enemy enemy0 = (Enemy)enemy.GetComponent("Enemy");
+            Spawn.S.score += enemy0.score;
+            GameObject.Find("Score").GetComponent<UnityEngine.UI.Text>().text = "Score: " + Spawn.S.score;
+            enemy0.Explode();
             Destroy(enemy);
         }
         Instantiate(Spawn.S.nukeEffect);

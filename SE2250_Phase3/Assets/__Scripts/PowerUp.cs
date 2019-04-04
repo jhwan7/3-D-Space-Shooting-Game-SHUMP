@@ -111,9 +111,9 @@ public class PowerUp : MonoBehaviour
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (GameObject enemy in enemies)
         {
-            Enemy e = (Enemy)enemy.GetComponent("Enemy");
-            e.stun = true;
-            Instantiate(Spawn.S.empEffect, e.transform.position, e.transform.rotation);
+            Enemy enemy0 = (Enemy)enemy.GetComponent("Enemy");
+            enemy0.stun = true;
+            Instantiate(Spawn.S.empEffect, enemy0.transform.position, enemy0.transform.rotation);
         }
     }
 }

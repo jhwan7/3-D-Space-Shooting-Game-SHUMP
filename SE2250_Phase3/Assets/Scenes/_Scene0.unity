@@ -1084,7 +1084,7 @@ MonoBehaviour:
   empEffect: {fileID: 100000, guid: 77ec3c4e07a36814fb3169ecef41b50a, type: 3}
   score: 0
   highScore: 0
-  nukeCounter: 0
+  nukeCounter: 1
   currentLevel: 1
 --- !u!114 &534669907
 MonoBehaviour:
@@ -1930,6 +1930,7 @@ MonoBehaviour:
   - {fileID: 1291669534}
   - {fileID: 1165305613}
   - {fileID: 1912675245}
+  playerExplosion: {fileID: 100006, guid: 715c3066fd9b14a958063b8a770a77ea, type: 3}
   _shieldLevel: 4
 --- !u!4 &1935705648
 Transform:

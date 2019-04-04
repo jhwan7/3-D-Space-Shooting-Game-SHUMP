@@ -103,6 +103,10 @@ public class Enemy : MonoBehaviour
                 Destroy(otherGO);
                 break;
 
+            case "Hero":
+                Explode();
+                break;
+
             default:
                 print("Enemy hit by non-ProjectileHero: " + otherGO.name);
                 break;
@@ -118,25 +122,27 @@ public class Enemy : MonoBehaviour
             return;
         }
 
-        //If enemies are destroyed, increase the score and make them explode
-        Spawn t = Camera.main.GetComponent<Spawn>();
-        t.score += this.score;
-        //Spawn.S.score += this.score;
-        GameObject.Find("Score").GetComponent<UnityEngine.UI.Text>().text = "Score: " + t.score;
-        Explode();
+        if (notifiedOfDestruction)
+        {
+            //If enemies are destroyed, increase the score and make them explode
+            Spawn.S.score = Spawn.S.score + score;
+            GameObject.Find("Score").GetComponent<UnityEngine.UI.Text>().text = "Score: " + Spawn.S.score;
+            Explode();
+        }
+      
     }
 
-    void Explode()
+    public void Explode()
     {
         if (!Application.isPlaying)
         {
-            Destroy(this);
+            //Destroy(this);
             return;
         }
         else
         {
             Instantiate(explosionEffect, transform.position, transform.rotation);
-            Destroy(this);
+            //Destroy(this);
         }
     }
 }

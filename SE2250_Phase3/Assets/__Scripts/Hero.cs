@@ -18,6 +18,8 @@ public class Hero : MonoBehaviour
     public float projectileSpeed = 40f;
     public Weapons[] weapons;
 
+    public GameObject playerExplosion;
+
     //Shield status
     [Header("Set Dynamically")]
     [SerializeField] //Allows us to see the private variable in the inspector
@@ -83,7 +85,9 @@ public class Hero : MonoBehaviour
 
         if(go.tag == "Enemy") 
         {
+            Enemy enemy0 = (Enemy)go.GetComponent("Enemy");
             shieldLevel--;
+            enemy0.Explode();
             Destroy(go); 
             print("Trigger");
         }
@@ -171,11 +175,11 @@ public class Hero : MonoBehaviour
             //If shield is going to be set to less than zero
             if (value < 0) //If the value passed into the set is less than 0, _Hero is destroyed
             {
+                Instantiate(playerExplosion, transform.position, transform.rotation);
                 Destroy(this.gameObject);
                 Spawn.S.DelayedRestart(gameRestartDelay); //This line restarts the game when all the player's shields are destroyed
             }
         }
     }
-
 
 }
