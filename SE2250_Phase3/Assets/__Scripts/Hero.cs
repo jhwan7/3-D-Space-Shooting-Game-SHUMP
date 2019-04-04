@@ -111,6 +111,10 @@ public class Hero : MonoBehaviour
                 shieldLevel++;
                 break;
 
+            case WeaponType.EMP:
+                pu.Stun();
+                break;
+
             default:
                 if(pu.type == weapons[0].type)
                 {

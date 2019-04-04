@@ -18,10 +18,11 @@ public class Spawn : MonoBehaviour
     public GameObject prefabPowerUp;
     public WeaponType[] powerUpFrequency = new WeaponType[]
     {
-        WeaponType.blaster, WeaponType.blaster, WeaponType.spread, WeaponType.shield, WeaponType.nuke
+        WeaponType.blaster, WeaponType.blaster, WeaponType.spread, WeaponType.shield, WeaponType.nuke, WeaponType.EMP
     };
 
     public GameObject nukeEffect;
+    public GameObject empEffect;
 
     private BoundsCheck _bndCheck;
 
@@ -139,6 +140,11 @@ public class Spawn : MonoBehaviour
             pu.SetType(puType); // f
                                 // Set it to the position of the destroyed ship
             pu.transform.position = e.transform.position;
+            //if (pu.type == WeaponType.EMP)
+            //{
+            //    pu.Stun();
+            //}
+
         }
     }
 }

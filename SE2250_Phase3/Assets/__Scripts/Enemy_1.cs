@@ -15,13 +15,14 @@ public class Enemy_1 : Enemy
     {
         Vector3 tempPos = pos; //gets the current position of object
               
-        if (i % 2 == 0)
+        if (i % 2 == 0 && stun == false)
         {
             tempPos.y -= speed * Time.deltaTime;
             tempPos.x -= speed * Time.deltaTime;
             pos = tempPos;
+
         }
-        if (i % 2 == 1)
+        if (i % 2 == 1 && stun == false)
         {
             tempPos.y -= speed * Time.deltaTime;
             tempPos.x += speed * Time.deltaTime;

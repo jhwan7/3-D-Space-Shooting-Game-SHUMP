@@ -8,7 +8,6 @@ public class Enemy : MonoBehaviour
 {
     
     public float speed = 10f;
-    public float fireRate = 0.3f;
     public float health = 10f;
     public int score = 0;
 
@@ -16,6 +15,20 @@ public class Enemy : MonoBehaviour
     public float powerUpDropChance = 0.3f;
 
     public GameObject explosionEffect;
+
+    private bool _stunned = false;
+
+    public bool stun
+    {
+        get
+        {
+            return (this._stunned);
+        }
+        set
+        {
+            this._stunned = value;
+        }
+    }
 
     protected BoundsCheck bndCheck;//using bounds check class
 
@@ -48,9 +61,16 @@ public class Enemy : MonoBehaviour
 
     public virtual void Move()
     {
-        Vector3 tempPos = pos; //gets the current position of object
-        tempPos.y -= speed * Time.deltaTime;
-        pos = tempPos;
+        if(stun == false)
+        {
+            Vector3 tempPos = pos; //gets the current position of object
+            tempPos.y -= speed * Time.deltaTime;
+            pos = tempPos;
+        }
+        else
+        {
+            return;
+        }
     }
 
     void OnCollisionEnter(Collision coll)
@@ -99,8 +119,10 @@ public class Enemy : MonoBehaviour
         }
 
         //If enemies are destroyed, increase the score and make them explode
-        Spawn.S.score = Spawn.S.score + score;
-        GameObject.Find("Score").GetComponent<UnityEngine.UI.Text>().text = "Score: " + Spawn.S.score;
+        Spawn t = Camera.main.GetComponent<Spawn>();
+        t.score += this.score;
+        //Spawn.S.score += this.score;
+        GameObject.Find("Score").GetComponent<UnityEngine.UI.Text>().text = "Score: " + t.score;
         Explode();
     }
 

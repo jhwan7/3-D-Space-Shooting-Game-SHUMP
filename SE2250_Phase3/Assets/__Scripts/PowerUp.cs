@@ -105,4 +105,15 @@ public class PowerUp : MonoBehaviour
         // but for now, just destroy this.gameObject
         Destroy(this.gameObject);
     }
+
+    public void Stun()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject enemy in enemies)
+        {
+            Enemy e = (Enemy)enemy.GetComponent("Enemy");
+            e.stun = true;
+            Instantiate(Spawn.S.empEffect, e.transform.position, e.transform.rotation);
+        }
+    }
 }

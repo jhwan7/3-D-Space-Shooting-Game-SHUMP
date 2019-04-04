@@ -771,8 +771,8 @@ GameObject:
   - component: {fileID: 534669904}
   - component: {fileID: 534669903}
   - component: {fileID: 534669907}
-  - component: {fileID: 534669906}
   - component: {fileID: 534669908}
+  - component: {fileID: 534669906}
   m_Layer: 0
   m_Name: _Main Camera
   m_TagString: MainCamera
@@ -873,7 +873,6 @@ MonoBehaviour:
     continuousDamage: 0
     delayBetweenShots: 0.2
     velocity: 50
-    soundEffect: {fileID: 8300000, guid: bf75b984df8a84987bcf3a8bf6e2862d, type: 3}
   - type: 2
     letter: S
     color: {r: 0.09803922, g: 0.627451, b: 0.88235295, a: 0}
@@ -884,7 +883,6 @@ MonoBehaviour:
     continuousDamage: 0
     delayBetweenShots: 0.4
     velocity: 50
-    soundEffect: {fileID: 0}
   - type: 6
     letter: O
     color: {r: 0, g: 1, b: 0, a: 0}
@@ -895,7 +893,6 @@ MonoBehaviour:
     continuousDamage: 0
     delayBetweenShots: 0
     velocity: 0
-    soundEffect: {fileID: 0}
   - type: 7
     letter: N
     color: {r: 1, g: 0, b: 0, a: 0}
@@ -906,14 +903,24 @@ MonoBehaviour:
     continuousDamage: 0
     delayBetweenShots: 0
     velocity: 0
-    soundEffect: {fileID: 0}
+  - type: 8
+    letter: EMP
+    color: {r: 1, g: 0.3479886, b: 0.7395372, a: 0}
+    projectilePrefab: {fileID: 5361838644442334600, guid: 69480d1ad557c4a03903bbca4f9fa7fc,
+      type: 3}
+    projectileColor: {r: 1, g: 1, b: 1, a: 0}
+    damageOnHit: 0
+    continuousDamage: 0
+    delayBetweenShots: 0
+    velocity: 0
   prefabPowerUp: {fileID: 1867547641346097343, guid: b68203212a3f24004b6ed70cdea640f7,
     type: 3}
-  powerUpFrequency: 0100000001000000020000000600000007000000
+  powerUpFrequency: 010000000100000002000000060000000700000008000000
   nukeEffect: {fileID: 100002, guid: 6ecf76dc4f268d340b2666896a954bcc, type: 3}
+  empEffect: {fileID: 100000, guid: 77ec3c4e07a36814fb3169ecef41b50a, type: 3}
   score: 0
   highScore: 0
-  nukeCounter: 0
+  nukeCounter: 1
   currentLevel: 1
 --- !u!114 &534669907
 MonoBehaviour:

@@ -14,7 +14,8 @@ public enum WeaponType
     missile,
     laser,
     shield,
-    nuke
+    nuke,
+    EMP
 }
 
 /* the WeaponDefinition class allows you to set the properties
@@ -129,9 +130,6 @@ public class Weapons : MonoBehaviour
                 p.transform.rotation = Quaternion.AngleAxis(-10, Vector3.back);
                 p.rigid.velocity = p.transform.rotation * vel;
                 break;
-            case WeaponType.nuke:
-                Nuke();
-                break;
         }
     }
 
@@ -146,6 +144,7 @@ public class Weapons : MonoBehaviour
         Spawn.S.nukeCounter--;
         GameObject.Find("NukeCounter").GetComponent<UnityEngine.UI.Text>().text = "Nuke Counter: " + Spawn.S.nukeCounter;
     }
+
 
     public Projectile MakeProjectile()
     { 
@@ -168,6 +167,17 @@ public class Weapons : MonoBehaviour
         p.type = type;
         lastShotTime = Time.time; 
         return (p);
+    }
+
+    public void Stun()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject enemy in enemies)
+        {
+            Enemy e = (Enemy)enemy.GetComponent("Enemy");
+            e.stun = true;
+            Instantiate(Spawn.S.empEffect,e.transform.position,e.transform.rotation);
+        }
     }
 
     void Update()
