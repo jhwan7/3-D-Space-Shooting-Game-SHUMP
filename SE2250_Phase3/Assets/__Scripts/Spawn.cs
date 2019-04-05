@@ -43,11 +43,13 @@ public class Spawn : MonoBehaviour
     public bool isDoubleTime;
     public float runningTime;
     public float pickupTime;
+    public GameObject doubleTimeText;
     private float levelTimeStart;
 
     private void Awake()
     {
         levelDisplay.SetActive(true);
+        doubleTimeText.SetActive(false);
         isDoubleTime = false;
         pickupTime = 0f;
         Time.timeScale = 1;
@@ -85,11 +87,23 @@ public class Spawn : MonoBehaviour
                 Invoke("SpawnEnemy", 1f / enemySpawnPeriod);
             }
         }
+
         runningTime = Time.time;
-        if (runningTime - pickupTime > 10)
+
+        //After 10 seconds, turn off X2 points
+        if (runningTime - pickupTime > 10) 
         {
             isDoubleTime = false;
+            doubleTimeText.SetActive(false);
         }
+
+        if (isDoubleTime) 
+        {
+            doubleTimeText.SetActive(true);
+            GameObject.Find("Double").GetComponent<UnityEngine.UI.Text>().text = "Double Time: " + (int)(pickupTime + 10 - runningTime);
+
+        }
+
     }
 
     public void SpawnEnemy()
