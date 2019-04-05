@@ -15,7 +15,8 @@ public enum WeaponType
     laser,
     shield,
     nuke,
-    EMP
+    EMP,
+    X2
 }
 
 /* the WeaponDefinition class allows you to set the properties

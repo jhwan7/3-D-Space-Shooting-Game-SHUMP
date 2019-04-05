@@ -124,16 +124,25 @@ public class Enemy : MonoBehaviour
 
         else if(Spawn.S.isNewLevel)
         {
-            Explode();
             return;
         }
 
         if (notifiedOfDestruction)
         {
             //If enemies are destroyed, increase the score and make them explode
-            Spawn.S.score = Spawn.S.score + score;
+            if(Spawn.S.isDoubleTime)
+            {
+                Debug.Log("x2 score on");
+                Spawn.S.score = Spawn.S.score + score * 2;
+
+            }
+            else
+            {
+                Spawn.S.score = Spawn.S.score + score;
+            }
             GameObject.Find("Score").GetComponent<UnityEngine.UI.Text>().text = "Score: " + Spawn.S.score;
             Explode();
+
         }
       
     }

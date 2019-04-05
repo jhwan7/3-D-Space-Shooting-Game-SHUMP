@@ -19,7 +19,7 @@ public class Spawn : MonoBehaviour
     public GameObject prefabPowerUp;
     public WeaponType[] powerUpFrequency = new WeaponType[]
     {
-        WeaponType.blaster, WeaponType.blaster, WeaponType.spread, WeaponType.shield, WeaponType.nuke, WeaponType.EMP
+        WeaponType.blaster, WeaponType.blaster, WeaponType.spread, WeaponType.shield, WeaponType.nuke, WeaponType.EMP, WeaponType.X2
     };
 
     public GameObject nukeEffect;
@@ -40,11 +40,16 @@ public class Spawn : MonoBehaviour
     public float scoreBase = 1000f;
     public float scoreNextLevel;
     public bool isNewLevel;
+    public bool isDoubleTime;
+    public float runningTime;
+    public float pickupTime;
     private float levelTimeStart;
 
     private void Awake()
     {
         levelDisplay.SetActive(true);
+        isDoubleTime = false;
+        pickupTime = 0f;
         Time.timeScale = 1;
         S = this;
         _bndCheck = GetComponent<BoundsCheck>();
@@ -79,6 +84,11 @@ public class Spawn : MonoBehaviour
                 levelDisplay.SetActive(false);
                 Invoke("SpawnEnemy", 1f / enemySpawnPeriod);
             }
+        }
+        runningTime = Time.time;
+        if (runningTime - pickupTime > 10)
+        {
+            isDoubleTime = false;
         }
     }
 

@@ -116,4 +116,15 @@ public class PowerUp : MonoBehaviour
             Instantiate(Spawn.S.empEffect, enemy0.transform.position, enemy0.transform.rotation);
         }
     }
+
+    //public void DoubleScore(float startTime)
+    //{ 
+    //    while(Spawn.S.runningTime - startTime < 10)
+    //    {
+    //        Spawn.S.isDoubleTime = true;
+    //    }
+    //    Debug.Log(Spawn.S.runningTime);
+    //    Spawn.S.isDoubleTime = false;
+
+    //}
 }

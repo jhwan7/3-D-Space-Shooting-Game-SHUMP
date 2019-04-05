@@ -359,9 +359,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  fireRate: 0.3
   health: 2
   score: 50
   notifiedOfDestruction: 0
-  powerUpDropChance: 0.3
+  powerUpDropChance: 1
   explosionEffect: {fileID: 100006, guid: a49596ebf788acd4ab1281bffea444b1, type: 3}

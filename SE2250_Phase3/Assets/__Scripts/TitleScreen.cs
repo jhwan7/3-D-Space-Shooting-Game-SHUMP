@@ -8,11 +8,13 @@ public class TitleScreen : MonoBehaviour
 {
     public GameObject HighScoreGUI;
     public GameObject TitleGUI;
+    public GameObject InstructionGUI;
 
     public void Awake()
     {
-        HighScoreGUI.SetActive(false);
         TitleGUI.SetActive(true);
+        HighScoreGUI.SetActive(false);
+        InstructionGUI.SetActive(false);
     }
     public void LoadGame()
     {
@@ -28,12 +30,20 @@ public class TitleScreen : MonoBehaviour
     {
         HighScoreGUI.SetActive(true);
         TitleGUI.SetActive(false);
-        GameObject.Find("HighScoreNumber").GetComponent<UnityEngine.UI.Text>().text = ""+ PlayerPrefs.GetInt("highScore");
+        GameObject.Find("HighScoreNumber").GetComponent<UnityEngine.UI.Text>().text = "" + PlayerPrefs.GetInt("highScore");
     }
 
     public void ReturnTitle()
     {
         HighScoreGUI.SetActive(false);
+        InstructionGUI.SetActive(false);
         TitleGUI.SetActive(true);
+    }
+
+    public void LoadInstruction()
+    {
+        TitleGUI.SetActive(false);
+        InstructionGUI.SetActive(true);
+
     }
 }

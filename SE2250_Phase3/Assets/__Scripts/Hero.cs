@@ -119,6 +119,11 @@ public class Hero : MonoBehaviour
                 pu.Stun();
                 break;
 
+            case WeaponType.X2:
+                Spawn.S.pickupTime = Time.time;
+                Spawn.S.isDoubleTime = true;
+                break;
+
             default:
                 if(pu.type == weapons[0].type)
                 {
