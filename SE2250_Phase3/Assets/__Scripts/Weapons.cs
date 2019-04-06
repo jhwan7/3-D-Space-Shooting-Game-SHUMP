@@ -238,7 +238,6 @@ public class Weapons : MonoBehaviour
             }
             else
             {
-                Debug.Log("Do Not Have Nukes");
                 return;
             }
 

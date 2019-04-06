@@ -33,13 +33,16 @@ public class Spawn : MonoBehaviour
 
     //Keep track of the number of nukes, start at 0
     public int nukeCounter;
+
+    //Fields related to score and level
     public int currentLevel = 1;
     public GameObject levelDisplay;
     public Text levelText;
-
     public float scoreBase = 1000f;
     public float scoreNextLevel;
     public bool isNewLevel;
+
+    //Fields related to double points
     public bool isDoubleTime;
     public float runningTime;
     public float pickupTime;
@@ -150,6 +153,7 @@ public class Spawn : MonoBehaviour
             levelText.text = "Level: " + currentLevel;
             levelDisplay.SetActive(true);
             levelTimeStart = Time.time;
+            //Decrease the time in which enemies spawn, as levels increase the spawn time decreases
             enemySpawnPeriod += 0.025f*currentLevel;
         }
     }

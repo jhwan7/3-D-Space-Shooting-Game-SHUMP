@@ -6,14 +6,13 @@ using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
-    
+    [Header("Set in Inspector")]
     public float speed = 10f;
     public float health = 10f;
     public int score = 0;
-
-    public bool notifiedOfDestruction = false;
     public float powerUpDropChance = 0.3f;
 
+    private bool _notifiedOfDestruction = false;
     public GameObject explosionEffect;
 
     private bool _stunned = false;
@@ -92,11 +91,11 @@ public class Enemy : MonoBehaviour
                 health -= Spawn.GetWeaponDefinition(p.type).damageOnHit;
                 if (health <= 0)
                 {
-                    if (!notifiedOfDestruction)
+                    if (!_notifiedOfDestruction)
                     {
                         Spawn.S.shipDestroyed(this);
                     }
-                    notifiedOfDestruction = true;
+                    _notifiedOfDestruction = true;
 
                     Destroy(this.gameObject);
                 }
@@ -127,7 +126,7 @@ public class Enemy : MonoBehaviour
             return;
         }
 
-        if (notifiedOfDestruction)
+        if (_notifiedOfDestruction)
         {
             //If enemies are destroyed, increase the score and make them explode
             if(Spawn.S.isDoubleTime)
@@ -138,7 +137,6 @@ public class Enemy : MonoBehaviour
             }
             else
             {
-                //Spawn.S.score = Spawn.S.score + score;
                 Spawn.S.UpdateScore(this);
             }
             GameObject.Find("Score").GetComponent<UnityEngine.UI.Text>().text = "Score: " + Spawn.S.score;
