@@ -9,12 +9,14 @@ public class TitleScreen : MonoBehaviour
     public GameObject HighScoreGUI;
     public GameObject TitleGUI;
     public GameObject InstructionGUI;
+    public GameObject CreditsGUI;
 
     public void Awake()
     {
         TitleGUI.SetActive(true);
         HighScoreGUI.SetActive(false);
         InstructionGUI.SetActive(false);
+        CreditsGUI.SetActive(false);
     }
     public void LoadGame()
     {
@@ -45,5 +47,10 @@ public class TitleScreen : MonoBehaviour
         TitleGUI.SetActive(false);
         InstructionGUI.SetActive(true);
 
+    }
+    public void LoadCredits()
+    {
+        TitleGUI.SetActive(false);
+        CreditsGUI.SetActive(true);
     }
 }

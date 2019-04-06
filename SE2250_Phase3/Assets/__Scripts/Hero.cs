@@ -108,7 +108,9 @@ public class Hero : MonoBehaviour
         switch (pu.type)
         {
             case WeaponType.nuke:
+                //When the nuke is absorbed by the user, increment the number of nukes allowed
                 Spawn.S.nukeCounter++;
+                //Update the UI-text
                 GameObject.Find("NukeCounter").GetComponent<UnityEngine.UI.Text>().text = "Nuke Counter: " + Spawn.S.nukeCounter;
                 break;
             case WeaponType.shield: // a
@@ -116,12 +118,14 @@ public class Hero : MonoBehaviour
                 break;
 
             case WeaponType.EMP:
+                //Call stun method
                 pu.Stun();
                 break;
 
             case WeaponType.X2:
                 Spawn.S.pickupTime = Time.time;
                 Spawn.S.isDoubleTime = true;
+                //Spawn.S.InitiateDoublePoints();
                 break;
 
             default:

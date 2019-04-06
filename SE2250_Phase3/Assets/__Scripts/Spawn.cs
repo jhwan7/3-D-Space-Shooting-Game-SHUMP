@@ -19,7 +19,7 @@ public class Spawn : MonoBehaviour
     public GameObject prefabPowerUp;
     public WeaponType[] powerUpFrequency = new WeaponType[]
     {
-        WeaponType.blaster, WeaponType.blaster, WeaponType.spread, WeaponType.shield, WeaponType.nuke, WeaponType.EMP, WeaponType.X2
+        WeaponType.blaster, WeaponType.spread, WeaponType.shield, WeaponType.nuke, WeaponType.EMP, WeaponType.X2
     };
 
     public GameObject nukeEffect;
@@ -31,8 +31,8 @@ public class Spawn : MonoBehaviour
     public int score = 0;
     public int highScore;
 
-    //Keep track of the number of nukes
-    public int nukeCounter = 0;
+    //Keep track of the number of nukes, start at 0
+    public int nukeCounter;
     public int currentLevel = 1;
     public GameObject levelDisplay;
     public Text levelText;
@@ -48,6 +48,11 @@ public class Spawn : MonoBehaviour
 
     private void Awake()
     {
+        if(Time.time < 1)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex -1);
+        }
+        nukeCounter = 0;
         levelDisplay.SetActive(true);
         doubleTimeText.SetActive(false);
         isDoubleTime = false;
@@ -90,7 +95,7 @@ public class Spawn : MonoBehaviour
 
         runningTime = Time.time;
 
-        //After 10 seconds, turn off X2 points
+        //After 10 seconds, turn off double points points
         if (runningTime - pickupTime > 10) 
         {
             isDoubleTime = false;
@@ -100,6 +105,7 @@ public class Spawn : MonoBehaviour
         if (isDoubleTime) 
         {
             doubleTimeText.SetActive(true);
+            //Display countdown of 10 seconds, which is time limit of the double points 
             GameObject.Find("Double").GetComponent<UnityEngine.UI.Text>().text = "Double Time: " + (int)(pickupTime + 10 - runningTime);
 
         }
@@ -200,18 +206,23 @@ public class Spawn : MonoBehaviour
     { // c
       // Potentially generate a PowerUp
         if (Random.value <= e.powerUpDropChance)
-        { // d
+        { // 
           // Choose which PowerUp to pick
           // Pick one from the possibilities in powerUpFrequency
-            int ndx = Random.Range(0, powerUpFrequency.Length); // e
+            int ndx = Random.Range(0, powerUpFrequency.Length); // 
             WeaponType puType = powerUpFrequency[ndx];
             // Spawn a PowerUp
             GameObject go = Instantiate(prefabPowerUp) as GameObject;
             PowerUp pu = go.GetComponent<PowerUp>();
             // Set it to the proper WeaponType
-            pu.SetType(puType); // f
+            pu.SetType(puType); // 
                                 // Set it to the position of the destroyed ship
             pu.transform.position = e.transform.position;
         }
+    }
+
+    public void UpdateScore(Enemy enemy)
+    {
+        score += enemy.score;
     }
 }

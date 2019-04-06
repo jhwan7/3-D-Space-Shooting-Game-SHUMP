@@ -138,7 +138,8 @@ public class Enemy : MonoBehaviour
             }
             else
             {
-                Spawn.S.score = Spawn.S.score + score;
+                //Spawn.S.score = Spawn.S.score + score;
+                Spawn.S.UpdateScore(this);
             }
             GameObject.Find("Score").GetComponent<UnityEngine.UI.Text>().text = "Score: " + Spawn.S.score;
             Explode();
@@ -147,17 +148,20 @@ public class Enemy : MonoBehaviour
       
     }
 
+    /*
+     * This method will instantiate a explosion VFX (with sound) on the location that the enemy is destroyed
+     */
+
     public void Explode()
     {
         if (!Application.isPlaying)
         {
-            //Destroy(this);
             return;
         }
         else
         {
+            //Instantiate explosion VFX on the location of where the enemy is destroyed
             Instantiate(explosionEffect, transform.position, transform.rotation);
-            //Destroy(this);
         }
     }
 }

@@ -134,25 +134,35 @@ public class Weapons : MonoBehaviour
         }
     }
 
+    /*
+     * Player can pickup a nuke, which destroys all enemies on screen
+     * When the player calls a nuke, a huge explosion VFX (with sound) is initiated in the middle of the screen
+     */
     void Nuke()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach(GameObject enemy in enemies)
         {
-            Enemy enemy0 = (Enemy)enemy.GetComponent("Enemy");
+            Enemy ship = (Enemy)enemy.GetComponent("Enemy");
+
+            //Check if the nuke is initiated while the player has double score
             if(Spawn.S.isDoubleTime)
             {
-                Spawn.S.score += enemy0.score*2;
+                Spawn.S.score += ship.score*2;
             }
             else
             {
-                Spawn.S.score += enemy0.score;
+                Spawn.S.UpdateScore(ship);
             }
+
             GameObject.Find("Score").GetComponent<UnityEngine.UI.Text>().text = "Score: " + Spawn.S.score;
-            enemy0.Explode();
+            ship.Explode();
             Destroy(enemy);
         }
-        Instantiate(Spawn.S.nukeEffect);
+
+        //Initatiate the nuke VFX + sound on the location of the hero ship
+        //Decrement the nuke counter and update the UI
+        Instantiate(Spawn.S.nukeEffect, Spawn.S.transform.position, Spawn.S.transform.rotation);
         Spawn.S.nukeCounter--;
         GameObject.Find("NukeCounter").GetComponent<UnityEngine.UI.Text>().text = "Nuke Counter: " + Spawn.S.nukeCounter;
     }
@@ -181,6 +191,11 @@ public class Weapons : MonoBehaviour
         return (p);
     }
 
+    /*
+     * Stun power-up freezes the enemies in place
+     * Also initiates a stun(EMP/Lightning) like VFX on the location of the enemy when the pickup is absorbed
+     */
+         
     public void Stun()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
@@ -209,6 +224,12 @@ public class Weapons : MonoBehaviour
                 SetType(_type);
             }
         }
+
+        /*
+         * Pressing 'F' allows the user to nukes, which is only allowed if 
+         * the player has actually accumulated nuke power ups
+         */
+                 
         if (Input.GetKeyDown(KeyCode.F))
         {
             if (Spawn.S.nukeCounter > 0)
@@ -217,6 +238,7 @@ public class Weapons : MonoBehaviour
             }
             else
             {
+                Debug.Log("Do Not Have Nukes");
                 return;
             }
 
