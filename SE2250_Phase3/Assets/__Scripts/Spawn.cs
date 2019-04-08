@@ -55,7 +55,7 @@ public class Spawn : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex -1);
         }
-        nukeCounter = 0;
+
         levelDisplay.SetActive(true);
         doubleTimeText.SetActive(false);
         isDoubleTime = false;

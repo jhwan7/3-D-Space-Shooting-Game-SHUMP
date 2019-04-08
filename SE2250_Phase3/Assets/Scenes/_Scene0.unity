@@ -1165,7 +1165,7 @@ MonoBehaviour:
   empEffect: {fileID: 100000, guid: 77ec3c4e07a36814fb3169ecef41b50a, type: 3}
   score: 0
   highScore: 0
-  nukeCounter: 1
+  nukeCounter: 0
   currentLevel: 1
   levelDisplay: {fileID: 596969824}
   levelText: {fileID: 462022202}

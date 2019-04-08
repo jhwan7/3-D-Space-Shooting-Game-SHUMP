@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour
     [Header("Set in Inspector")]
     public float speed = 10f;
     public float health = 10f;
-    public int score = 0;
+    public int score = 2;
     public float powerUpDropChance = 0.3f;
 
     private bool _notifiedOfDestruction = false;
