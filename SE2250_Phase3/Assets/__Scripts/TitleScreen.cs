@@ -1,22 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class TitleScreen : MonoBehaviour
 {
-    public GameObject HighScoreGUI;
-    public GameObject TitleGUI;
-    public GameObject InstructionGUI;
-    public GameObject CreditsGUI;
+    public GameObject highScoreGUI;
+    public GameObject titleGUI;
+    public GameObject instructionGUI;
+    public GameObject creditsGUI;
 
     public void Awake()
     {
-        TitleGUI.SetActive(true);
-        HighScoreGUI.SetActive(false);
-        InstructionGUI.SetActive(false);
-        CreditsGUI.SetActive(false);
+        titleGUI.SetActive(true);
+        highScoreGUI.SetActive(false);
+        instructionGUI.SetActive(false);
+        creditsGUI.SetActive(false);
     }
     public void LoadGame()
     {
@@ -30,27 +27,27 @@ public class TitleScreen : MonoBehaviour
 
     public void HighScorePOPUP()
     {
-        HighScoreGUI.SetActive(true);
-        TitleGUI.SetActive(false);
+        highScoreGUI.SetActive(true);
+        titleGUI.SetActive(false);
         GameObject.Find("HighScoreNumber").GetComponent<UnityEngine.UI.Text>().text = "" + PlayerPrefs.GetInt("highScore");
     }
 
     public void ReturnTitle()
     {
-        HighScoreGUI.SetActive(false);
-        InstructionGUI.SetActive(false);
-        TitleGUI.SetActive(true);
+        highScoreGUI.SetActive(false);
+        instructionGUI.SetActive(false);
+        titleGUI.SetActive(true);
     }
 
     public void LoadInstruction()
     {
-        TitleGUI.SetActive(false);
-        InstructionGUI.SetActive(true);
+        titleGUI.SetActive(false);
+        instructionGUI.SetActive(true);
 
     }
     public void LoadCredits()
     {
-        TitleGUI.SetActive(false);
-        CreditsGUI.SetActive(true);
+        titleGUI.SetActive(false);
+        creditsGUI.SetActive(true);
     }
 }
