@@ -31,7 +31,7 @@ public class TitleScreen : MonoBehaviour
     {
         highScoreGUI.SetActive(true);
         titleGUI.SetActive(false);
-        GameObject.Find("HighScoreNumber").GetComponent<UnityEngine.UI.Text>().text = "" + PlayerPrefs.GetInt("qweasd");
+        GameObject.Find("HighScoreNumber").GetComponent<UnityEngine.UI.Text>().text = "" + PlayerPrefs.GetInt("highScore");
     }
 
     public void ReturnTitle()

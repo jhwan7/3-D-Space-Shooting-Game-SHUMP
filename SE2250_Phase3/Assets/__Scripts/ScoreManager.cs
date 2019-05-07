@@ -31,7 +31,7 @@ public class ScoreManager : MonoBehaviour
 
     public void SetHighscore(int newHighScore)
     {
-        PlayerPrefs.SetInt("qweasd", newHighScore);
+        PlayerPrefs.SetInt("highScore", newHighScore);
     }
     public void UpdateScore(int enemyScore)
     {
@@ -40,11 +40,11 @@ public class ScoreManager : MonoBehaviour
     }
     public void UpdateScoreText()
     {
-        GameObject.Find("Score").GetComponent<UnityEngine.UI.Text>().text = "Score: " + score;
+        GameObject.Find("/Canvas/Score").GetComponent<UnityEngine.UI.Text>().text = "Score: " + score;
     }
 
     public void UpdateHighScoreText()
     {
-        GameObject.Find("HighScore").GetComponent<UnityEngine.UI.Text>().text = "High Score: " + PlayerPrefs.GetInt("qweasd");
+        GameObject.Find("/Canvas/HighScore").GetComponent<UnityEngine.UI.Text>().text = "High Score: " + PlayerPrefs.GetInt("highScore");
     }
 }

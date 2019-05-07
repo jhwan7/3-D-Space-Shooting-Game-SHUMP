@@ -71,7 +71,7 @@ public class Spawn : MonoBehaviour
         {
             WEAP_DICT[def.type] = def; //In the dictionary we are attaching the specifications (value) of each weapon to the weapon name(key)
         }
-
+        x2Slider.value = 0;
         ScoreManager.scoreManager.UpdateScoreText();
         GameObject.Find("NukeCounter").GetComponent<UnityEngine.UI.Text>().text = "Nuke Counter: " + nukeCounter;
 
@@ -186,19 +186,6 @@ public class Spawn : MonoBehaviour
     {
         //Invoke the Restart() method in delay seconds
         Invoke("Restart", delay);
-    }
-
-    //Restart() is called in DelayedRestart() method
-    public void Restart()
-    {
-        if (ScoreManager.scoreManager.score > PlayerPrefs.GetInt("qweasd"))
-        {
-            ScoreManager.scoreManager.SetHighscore(ScoreManager.scoreManager.score);
-            ScoreManager.scoreManager.UpdateScore(0);
-        }
-
-        //Reload _Scene_0 to restart the game
-        SceneManager.LoadScene("_Scene0");
     }
 
     /* Static function that gets a WeaponDefinition from the WEAP_DICT static

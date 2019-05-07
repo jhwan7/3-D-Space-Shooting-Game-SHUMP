@@ -188,7 +188,7 @@ public class Hero : MonoBehaviour
             {
                 Instantiate(playerExplosion, transform.position, transform.rotation);
                 Destroy(this.gameObject);
-                Spawn.S.DelayedRestart(gameRestartDelay); //This line restarts the game when all the player's shields are destroyed
+                //Spawn.S.DelayedRestart(gameRestartDelay); //This line restarts the game when all the player's shields are destroyed
             }
         }
     }
