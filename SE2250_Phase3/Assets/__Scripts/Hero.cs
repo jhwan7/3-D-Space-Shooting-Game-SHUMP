@@ -125,6 +125,8 @@ public class Hero : MonoBehaviour
             case WeaponType.X2:
                 Spawn.S.pickupTime = Time.time;
                 Spawn.S.isDoubleTime = true;
+                Spawn.S.x2Slider.value = 1;
+                Spawn.S.timeTracker = 0;
                 //Spawn.S.InitiateDoublePoints();
                 break;
 

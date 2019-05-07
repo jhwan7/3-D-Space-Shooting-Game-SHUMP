@@ -249,7 +249,7 @@ MonoBehaviour:
   speed: 10
   health: 6
   score: 300
-  powerUpDropChance: 0.3
+  powerUpDropChance: 1
   explosionEffect: {fileID: 100006, guid: a49596ebf788acd4ab1281bffea444b1, type: 3}
   waveFrequency: 2
   waveWidth: 4

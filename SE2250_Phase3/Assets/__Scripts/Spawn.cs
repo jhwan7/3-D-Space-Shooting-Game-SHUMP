@@ -14,6 +14,10 @@ public class Spawn : MonoBehaviour
     public float enemySpawnPeriod = 0.5f;
     public float enemyDefaultPadding = 1.5f;
 
+
+    public Slider x2Slider;
+    public float timeTracker=0f;
+
     //Instantiating an array that holds the different weapons
     public WeaponDefinition[] weaponDefinitions;
     public GameObject prefabPowerUp;
@@ -55,7 +59,6 @@ public class Spawn : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex -1);
         }
-
         levelDisplay.SetActive(true);
         doubleTimeText.SetActive(false);
         isDoubleTime = false;
@@ -107,10 +110,20 @@ public class Spawn : MonoBehaviour
 
         if (isDoubleTime) 
         {
+           
             doubleTimeText.SetActive(true);
             //Display countdown of 10 seconds, which is time limit of the double points 
             GameObject.Find("Double").GetComponent<UnityEngine.UI.Text>().text = "Double Time: " + (int)(pickupTime + 10 - runningTime);
 
+        }
+
+        if (isDoubleTime)
+        {
+            if(runningTime-pickupTime > timeTracker)
+            {
+                x2Slider.value = x2Slider.value - 0.002f;
+                timeTracker +=0.02f;
+            }
         }
 
     }
