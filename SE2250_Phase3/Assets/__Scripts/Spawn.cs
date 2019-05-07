@@ -8,7 +8,7 @@ public class Spawn : MonoBehaviour
 {
     static public Spawn S;
     //Dictionary is static so that class Spawn class instance can access and any static method of Spawn too
-    static Dictionary<WeaponType, WeaponDefinition> WEAP_DICT; 
+    static Dictionary<WeaponType, WeaponDefinition> WEAP_DICT;
 
     public GameObject[] prefabEnemies;
     public float enemySpawnPeriod = 0.5f;
@@ -16,7 +16,7 @@ public class Spawn : MonoBehaviour
 
 
     public Slider x2Slider;
-    public float timeTracker=0f;
+    public float timeTracker = 0f;
 
     //Instantiating an array that holds the different weapons
     public WeaponDefinition[] weaponDefinitions;
@@ -32,8 +32,7 @@ public class Spawn : MonoBehaviour
     private BoundsCheck _bndCheck;
 
     //Fields related to keeping the score
-    public int score = 0;
-    public int highScore;
+
 
     //Keep track of the number of nukes, start at 0
     public int nukeCounter;
@@ -55,9 +54,9 @@ public class Spawn : MonoBehaviour
 
     private void Awake()
     {
-        if(Time.time < 1)
+        if (Time.time < 1)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex -1);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
         }
         levelDisplay.SetActive(true);
         doubleTimeText.SetActive(false);
@@ -68,31 +67,32 @@ public class Spawn : MonoBehaviour
         _bndCheck = GetComponent<BoundsCheck>();
         //A generic dictionary with WeaponType as the key
         WEAP_DICT = new Dictionary<WeaponType, WeaponDefinition>();
-        foreach(WeaponDefinition def in weaponDefinitions)
+        foreach (WeaponDefinition def in weaponDefinitions)
         {
             WEAP_DICT[def.type] = def; //In the dictionary we are attaching the specifications (value) of each weapon to the weapon name(key)
         }
 
-        GameObject.Find("Score").GetComponent<UnityEngine.UI.Text>().text = "Score: " + score;
+        ScoreManager.scoreManager.UpdateScoreText();
         GameObject.Find("NukeCounter").GetComponent<UnityEngine.UI.Text>().text = "Nuke Counter: " + nukeCounter;
 
         // Check for a high score in PlayerPrefs
         if (PlayerPrefs.HasKey("highScore"))
         {
-            GameObject.Find("HighScore").GetComponent<UnityEngine.UI.Text>().text = "High Score: " + PlayerPrefs.GetInt("highScore");
+            //GameObject.Find("HighScore").GetComponent<UnityEngine.UI.Text>().text = "High Score: " + ScoreManager.scoreManager.highScore;
+            ScoreManager.scoreManager.UpdateHighScoreText();
         }
         else
         {
-            PlayerPrefs.SetInt("highScore", 0);
+            ScoreManager.scoreManager.SetHighscore(0);
         }
     }
 
     private void Update()
     {
         SetLevel();
-        if(levelDisplay.activeSelf)
+        if (levelDisplay.activeSelf)
         {
-            if(Time.time - levelTimeStart > 1f)
+            if (Time.time - levelTimeStart > 1f)
             {
                 levelDisplay.SetActive(false);
                 Invoke("SpawnEnemy", 1f / enemySpawnPeriod);
@@ -102,15 +102,15 @@ public class Spawn : MonoBehaviour
         runningTime = Time.time;
 
         //After 10 seconds, turn off double points points
-        if (runningTime - pickupTime > 10) 
+        if (runningTime - pickupTime > 10)
         {
             isDoubleTime = false;
             doubleTimeText.SetActive(false);
         }
 
-        if (isDoubleTime) 
+        if (isDoubleTime)
         {
-           
+
             doubleTimeText.SetActive(true);
             //Display countdown of 10 seconds, which is time limit of the double points 
             GameObject.Find("Double").GetComponent<UnityEngine.UI.Text>().text = "Double Time: " + (int)(pickupTime + 10 - runningTime);
@@ -119,10 +119,10 @@ public class Spawn : MonoBehaviour
 
         if (isDoubleTime)
         {
-            if(runningTime-pickupTime > timeTracker)
+            if (runningTime - pickupTime > timeTracker)
             {
                 x2Slider.value = x2Slider.value - 0.002f;
-                timeTracker +=0.02f;
+                timeTracker += 0.02f;
             }
         }
 
@@ -158,7 +158,7 @@ public class Spawn : MonoBehaviour
     {
         isNewLevel = false;
         scoreNextLevel = Mathf.Pow(currentLevel, 1.5f) * scoreBase;
-        if(score >= scoreNextLevel)
+        if (ScoreManager.scoreManager.score >= scoreNextLevel)
         {
             currentLevel++;
             isNewLevel = true;
@@ -167,14 +167,14 @@ public class Spawn : MonoBehaviour
             levelDisplay.SetActive(true);
             levelTimeStart = Time.time;
             //Decrease the time in which enemies spawn, as levels increase the spawn time decreases
-            enemySpawnPeriod += 0.025f*currentLevel;
+            enemySpawnPeriod += 0.025f * currentLevel;
         }
     }
 
     public void removeEnemies()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        foreach(GameObject enemy in enemies)
+        foreach (GameObject enemy in enemies)
         {
             Destroy(enemy);
         }
@@ -182,7 +182,7 @@ public class Spawn : MonoBehaviour
 
     /* DelayedRestart and Restart are called in Hero class when the player dies
      */
-    public void DelayedRestart( float delay)
+    public void DelayedRestart(float delay)
     {
         //Invoke the Restart() method in delay seconds
         Invoke("Restart", delay);
@@ -191,9 +191,10 @@ public class Spawn : MonoBehaviour
     //Restart() is called in DelayedRestart() method
     public void Restart()
     {
-        if (score > highScore)
+        if (ScoreManager.scoreManager.score > PlayerPrefs.GetInt("qweasd"))
         {
-            PlayerPrefs.SetInt("highScore", score);
+            ScoreManager.scoreManager.SetHighscore(ScoreManager.scoreManager.score);
+            ScoreManager.scoreManager.UpdateScore(0);
         }
 
         //Reload _Scene_0 to restart the game
@@ -238,8 +239,5 @@ public class Spawn : MonoBehaviour
         }
     }
 
-    public void UpdateScore(Enemy enemy)
-    {
-        score += enemy.score;
-    }
+    
 }

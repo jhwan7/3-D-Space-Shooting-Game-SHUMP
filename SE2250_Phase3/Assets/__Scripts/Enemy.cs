@@ -132,14 +132,14 @@ public class Enemy : MonoBehaviour
             if(Spawn.S.isDoubleTime)
             {
                 Debug.Log("x2 score on");
-                Spawn.S.score = Spawn.S.score + score * 2;
+                ScoreManager.scoreManager.UpdateScore(score * 2)  ;
 
             }
             else
             {
-                Spawn.S.UpdateScore(this);
+                ScoreManager.scoreManager.UpdateScore(this.score);
             }
-            GameObject.Find("Score").GetComponent<UnityEngine.UI.Text>().text = "Score: " + Spawn.S.score;
+            GameObject.Find("Score").GetComponent<UnityEngine.UI.Text>().text = "Score: " + ScoreManager.scoreManager.score;
             Explode();
 
         }

@@ -148,14 +148,14 @@ public class Weapons : MonoBehaviour
             //Check if the nuke is initiated while the player has double score
             if(Spawn.S.isDoubleTime)
             {
-                Spawn.S.score += ship.score*2;
+                ScoreManager.scoreManager.UpdateScore(ship.score*2);
             }
             else
             {
-                Spawn.S.UpdateScore(ship);
+                ScoreManager.scoreManager.UpdateScore(ship.score);
             }
 
-            GameObject.Find("Score").GetComponent<UnityEngine.UI.Text>().text = "Score: " + Spawn.S.score;
+            GameObject.Find("Score").GetComponent<UnityEngine.UI.Text>().text = "Score: " + ScoreManager.scoreManager.score;
             ship.Explode();
             Destroy(enemy);
         }

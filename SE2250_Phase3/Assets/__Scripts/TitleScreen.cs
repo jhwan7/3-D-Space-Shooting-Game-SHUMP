@@ -20,6 +20,8 @@ public class TitleScreen : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
+    
+
     public void QuitGame()
     {
         Application.Quit();
@@ -29,7 +31,7 @@ public class TitleScreen : MonoBehaviour
     {
         highScoreGUI.SetActive(true);
         titleGUI.SetActive(false);
-        GameObject.Find("HighScoreNumber").GetComponent<UnityEngine.UI.Text>().text = "" + PlayerPrefs.GetInt("highScore");
+        GameObject.Find("HighScoreNumber").GetComponent<UnityEngine.UI.Text>().text = "" + PlayerPrefs.GetInt("qweasd");
     }
 
     public void ReturnTitle()
