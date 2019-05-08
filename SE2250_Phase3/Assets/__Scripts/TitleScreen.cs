@@ -14,6 +14,7 @@ public class TitleScreen : MonoBehaviour
         highScoreGUI.SetActive(false);
         instructionGUI.SetActive(false);
         creditsGUI.SetActive(false);
+        ScoreManager.scoreManager = gameObject.AddComponent<ScoreManager>();
     }
     public void LoadGame()
     {

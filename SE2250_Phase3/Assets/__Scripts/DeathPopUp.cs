@@ -29,7 +29,7 @@ public class DeathPopUp : MonoBehaviour
         {
             ScoreManager.scoreManager.SetHighscore(ScoreManager.scoreManager.score);
         }
-        ScoreManager.scoreManager.UpdateScore(0);
+        ScoreManager.scoreManager.SetScore(0);
         SceneManager.LoadScene("_Scene0");
     }
 

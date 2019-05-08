@@ -8,13 +8,8 @@ public class ScoreManager : MonoBehaviour
 
     public int score = 0;
     public int highScore;
-
-    private void Awake()
-    {
-        scoreManager = this;
-    }
     // Start is called before the first frame update
-    private ScoreManager() { }
+    public ScoreManager() { }
 
     public static ScoreManager Instance
     {
@@ -33,7 +28,7 @@ public class ScoreManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("highScore", newHighScore);
     }
-    public void UpdateScore(int enemyScore)
+    public void SetScore(int enemyScore)
     {
         score += enemyScore;
         if (enemyScore == 0) score = 0;

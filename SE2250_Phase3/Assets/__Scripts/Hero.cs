@@ -127,6 +127,7 @@ public class Hero : MonoBehaviour
                 Spawn.S.isDoubleTime = true;
                 Spawn.S.x2Slider.value = 1;
                 Spawn.S.timeTracker = 0;
+                Spawn.S.x2Slider.gameObject.SetActive(true);
                 //Spawn.S.InitiateDoublePoints();
                 break;
 

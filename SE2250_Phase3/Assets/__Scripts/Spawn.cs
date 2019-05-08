@@ -64,6 +64,7 @@ public class Spawn : MonoBehaviour
         pickupTime = 0f;
         Time.timeScale = 1;
         S = this;
+        //ScoreManager.scoreManager = new ScoreManager();
         _bndCheck = GetComponent<BoundsCheck>();
         //A generic dictionary with WeaponType as the key
         WEAP_DICT = new Dictionary<WeaponType, WeaponDefinition>();
@@ -71,7 +72,9 @@ public class Spawn : MonoBehaviour
         {
             WEAP_DICT[def.type] = def; //In the dictionary we are attaching the specifications (value) of each weapon to the weapon name(key)
         }
+        ScoreManager.scoreManager.SetScore(0);
         x2Slider.value = 0;
+        x2Slider.gameObject.SetActive(false);
         ScoreManager.scoreManager.UpdateScoreText();
         GameObject.Find("NukeCounter").GetComponent<UnityEngine.UI.Text>().text = "Nuke Counter: " + nukeCounter;
 
@@ -106,6 +109,7 @@ public class Spawn : MonoBehaviour
         {
             isDoubleTime = false;
             doubleTimeText.SetActive(false);
+            x2Slider.gameObject.SetActive(false);
         }
 
         if (isDoubleTime)
