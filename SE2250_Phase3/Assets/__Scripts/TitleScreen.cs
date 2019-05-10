@@ -7,6 +7,7 @@ public class TitleScreen : MonoBehaviour
     public GameObject titleGUI;
     public GameObject instructionGUI;
     public GameObject creditsGUI;
+    public GameObject settingsGUI;
 
     public void Awake()
     {
@@ -52,5 +53,10 @@ public class TitleScreen : MonoBehaviour
     {
         titleGUI.SetActive(false);
         creditsGUI.SetActive(true);
+    }
+    public void LoadSettings()
+    {
+        titleGUI.SetActive(false);
+        settingsGUI.SetActive(true);
     }
 }
