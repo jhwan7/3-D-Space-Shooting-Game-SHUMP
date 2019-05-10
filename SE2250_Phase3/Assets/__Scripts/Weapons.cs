@@ -120,8 +120,11 @@ public class Weapons : MonoBehaviour
             case WeaponType.blaster:
                 p = MakeProjectile();
                 p.rigid.velocity = vel;
+                AudioManager.instance.Play("Blaster");
+                //FindObjectOfType<AudioManager>().Play("Blaster");
                 break;
             case WeaponType.spread: // l
+                FindObjectOfType<AudioManager>().Play("Spread");
                 p = MakeProjectile(); // Make middle Projectile
                 p.rigid.velocity = vel;
                 p = MakeProjectile(); // Make right Projectile
@@ -235,6 +238,8 @@ public class Weapons : MonoBehaviour
             if (Spawn.S.nukeCounter > 0)
             {
                 Nuke();
+                AudioManager.instance.Play("Nuke");
+                //FindObjectOfType<AudioManager>().Play("Nuke");
             }
             else
             {

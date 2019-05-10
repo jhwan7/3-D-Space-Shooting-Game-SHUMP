@@ -62,6 +62,7 @@ public class Hero : MonoBehaviour
         if (Input.GetAxis("Jump") == 1 && fireDelegate != null) //Jump is equivalent to 1 when spacebar is pressed
         {
             fireDelegate();
+            //FindObjectOfType<AudioManager>().Play("Blaster");
         }
 
     }
@@ -120,6 +121,7 @@ public class Hero : MonoBehaviour
             case WeaponType.EMP:
                 //Call stun method
                 pu.Stun();
+                FindObjectOfType<AudioManager>().Play("EMP");
                 break;
 
             case WeaponType.X2:

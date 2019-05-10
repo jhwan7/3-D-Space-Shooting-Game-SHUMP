@@ -1573,6 +1573,92 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 681493193}
   m_CullTransparentMesh: 0
+--- !u!1 &713346746
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 713346748}
+  - component: {fileID: 713346747}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &713346747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713346746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa3734ba09d9ae946b4544c9b17bf21f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: EnemyExplosion
+    clip: {fileID: 8300000, guid: 72e76810224064300b7d32e8322a5d12, type: 3}
+    volume: 0.41
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: HeroExplosion
+    clip: {fileID: 8300000, guid: a019ae3af8e864616b85773c509f5285, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Background
+    clip: {fileID: 8300000, guid: 7b04c59dd84f14039b601e1abbe7b884, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: Blaster
+    clip: {fileID: 8300000, guid: 1be4472894949437694aead55c6da60f, type: 3}
+    volume: 0.45
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Spread
+    clip: {fileID: 8300000, guid: bf75b984df8a84987bcf3a8bf6e2862d, type: 3}
+    volume: 0.43
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Nuke
+    clip: {fileID: 8300000, guid: 1a2d9c063746d4030988161b482de778, type: 3}
+    volume: 0.47
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: EMP
+    clip: {fileID: 8300000, guid: cc221fa534dac4b3eb5e4a7fb1bcb322, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+--- !u!4 &713346748
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713346746}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 543.3578, y: 463.0662, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &787400460
 GameObject:
   m_ObjectHideFlags: 0

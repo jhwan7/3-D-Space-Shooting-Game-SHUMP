@@ -5,8 +5,9 @@ using UnityEngine;
 public class ScoreManager : MonoBehaviour
 {
     static public ScoreManager scoreManager;
-
+    [HideInInspector]
     public int score = 0;
+    [HideInInspector]
     public int highScore;
     // Start is called before the first frame update
     public ScoreManager() { }
