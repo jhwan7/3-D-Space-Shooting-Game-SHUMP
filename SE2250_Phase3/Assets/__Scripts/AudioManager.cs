@@ -8,6 +8,11 @@ public class AudioManager : MonoBehaviour
 {
     public Sound[] sounds;
     public static AudioManager instance;
+
+    public AudioMixerGroup master;
+    public AudioMixerGroup effect;
+    public AudioMixerGroup background;
+    public AudioMixerGroup vfxEffect;
     // Start is called before the first frame update
     void Awake()
     {
@@ -30,6 +35,21 @@ public class AudioManager : MonoBehaviour
             s.source.pitch = s.pitch;
             s.source.volume = s.volume;
             s.source.loop = s.loop;
+            if(s.tag == "VFX")
+            {
+                s.source.outputAudioMixerGroup = vfxEffect;
+            }
+            else if(s.tag == "BGM")
+            {
+                s.source.outputAudioMixerGroup = background;
+            }
+            else if(s.tag == "Effect")
+            {
+                s.source.outputAudioMixerGroup = effect;
+            }
+            else { s.source.outputAudioMixerGroup = master; }
+            
+            
             //s.source.dopplerLevel = 0f;
         }
     }
@@ -43,7 +63,7 @@ public class AudioManager : MonoBehaviour
         Sound s = Array.Find(sounds, sound => sound.name == name);
         if(s == null)
         {
-            Debug.LogWarning("Sound: " + name + "not found!");
+            Debug.LogWarning("Sound: " + name + " not found!");
             return;
         }
         s.source.Play();

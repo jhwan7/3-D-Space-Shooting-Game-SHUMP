@@ -160,6 +160,7 @@ public class Enemy : MonoBehaviour
         {
             //Instantiate explosion VFX on the location of where the enemy is destroyed
             Instantiate(explosionEffect, transform.position, transform.rotation);
+            AudioManager.instance.Play("enemyDestruction");
         }
     }
 }
